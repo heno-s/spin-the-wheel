@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #9d4343;
+    --secondary-color: #565656;
+}
+
 html {
     font-family: sans-serif;
 }
@@ -42,13 +47,25 @@ button {
 
 .wheel-pointer::before {
     content: "";
-    background-color: #9d4343;
+    background-color: var(--primary-color);
     width: 22px;
     height: 14px;
     position: absolute;
     top: 2.2px;
     left: 4px;
     clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.wheel-center {
+    position: absolute;
+    border-radius: 50%;
+    border: 5px solid;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    aspect-ratio: 1;
+    background-color: var(--primary-color);
 }
 
 .wheel-options {
