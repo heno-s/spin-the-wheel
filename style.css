@@ -1,7 +1,7 @@
 *,
 *::before,
 *::after {
-    margin: O;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -13,4 +13,19 @@ html {
 button {
     border: none;
     cursor: pointer;
+}
+
+.previous-prize {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.container {
+    background-color: #606060;
+    height: 100vh;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
 }
