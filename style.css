@@ -29,3 +29,31 @@ button {
     align-items: center;
     justify-content: center;
 }
+
+.wheel-pointer {
+    background-color: #000000;
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.wheel-pointer::before {
+    content: "";
+    background-color: #9d4343;
+    width: 22px;
+    height: 14px;
+    position: absolute;
+    top: 2.2px;
+    left: 4px;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.wheel-options {
+    width: 300px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: red;
+}
