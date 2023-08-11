@@ -1,14 +1,14 @@
-const wheelOptions = document.querySelector(".wheel-options");
 const WHEEL_WIDTH = 300;
 const MAX_DEGREE = 360;
 
 function calibrateWheel(by) {
-    const wheelOptions = document.querySelector(".wheel-options");
-    wheelOptions.style.transform = `rotate(${by}deg)`;
+    const wheelOptionsDOM = document.querySelector(".wheel-options");
+    wheelOptionsDOM.style.transform = `rotate(${by}deg)`;
 }
 
 function deleteWheel() {
-    wheelOptions.innerHTML = "";
+    const wheelOptionsDOM = document.querySelector(".wheel-options");
+    wheelOptionsDOM.remove();
 }
 
 function createOptionDOM(label) {
@@ -22,6 +22,8 @@ function createOptionDOM(label) {
 }
 
 export default function createWheel(options) {
+    const wheelOptionsDOM = document.createElement("ul");
+    wheelOptionsDOM.classList.add("wheel-options");
     options.forEach((option, index) => {
         let optionWidth = (Math.PI * WHEEL_WIDTH) / options.length;
         const optionDOM = createOptionDOM(option);
@@ -42,8 +44,10 @@ export default function createWheel(options) {
         }
         optionDOM.style.width = `${optionWidth}px`;
 
-        wheelOptions.appendChild(optionDOM);
+        wheelOptionsDOM.appendChild(optionDOM);
     });
+
+    return wheelOptionsDOM;
 }
 
-export { calibrateWheel, deleteWheel, WHEEL_WIDTH };
+export { calibrateWheel, deleteWheel };

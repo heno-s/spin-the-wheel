@@ -124,7 +124,11 @@ button {
     height: 400px;
     padding: 20px;
     border-radius: 16px;
-    width: 200px;
+    width: 250px;
+}
+
+.options {
+    overflow: auto;
 }
 
 .option {
@@ -142,6 +146,9 @@ button {
     padding: 4px 32px;
     background-color: #d9d9d9;
     border-radius: 8px;
+    width: 130px;
+    text-align: center;
+    overflow: auto;
 }
 
 .option-delete {
