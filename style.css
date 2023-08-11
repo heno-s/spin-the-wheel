@@ -114,3 +114,17 @@ button {
     padding: 8px 64px;
     border-radius: 8px;
 }
+
+.options-container {
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    height: 400px;
+    padding: 20px;
+}
+
+.add-option {
+    margin-top: auto;
+}
