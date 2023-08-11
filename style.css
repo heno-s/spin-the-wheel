@@ -43,6 +43,7 @@ button {
     left: 50%;
     transform: translate(-50%, -30%);
     clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 10;
 }
 
 .wheel-pointer::before {
@@ -66,11 +67,33 @@ button {
     width: 25px;
     aspect-ratio: 1;
     background-color: var(--primary-color);
+    z-index: 10;
 }
 
 .wheel-options {
     width: 300px;
     aspect-ratio: 1;
     border-radius: 50%;
-    background-color: red;
+    background-color: #000;
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.wheel-option {
+    height: 100%;
+    /* border-radius: 50%; */
+    position: absolute;
+    padding-top: 8%;
+    display: flex;
+    justify-content: center;
+}
+
+.wheel-option:nth-child(even) {
+    background-color: var(--primary-color);
+}
+
+.wheel-option:nth-child(odd) {
+    background-color: var(--secondary-color);
 }
