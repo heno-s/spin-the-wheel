@@ -125,6 +125,30 @@ button {
     padding: 20px;
 }
 
+.option {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.option-label {
+    padding: 4px 32px;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+}
+
+.option-delete {
+    color: #f00;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .add-option {
     margin-top: auto;
 }
