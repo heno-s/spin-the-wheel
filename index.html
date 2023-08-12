@@ -18,6 +18,7 @@
             <div class="wheel-container">
                 <div class="wheel">
                     <div class="wheel-pointer"></div>
+                    <ul class="wheel-options"></ul>
                     <div class="wheel-center"></div>
                 </div>
                 <button class="spin-button">SPIN</button>
@@ -32,7 +33,11 @@
                     </button>
                     <form class="add-option-form hide">
                         <div class="add-option-cancel">x</div>
-                        <input type="text" name="optionLabel" />
+                        <input
+                            type="text"
+                            name="optionLabel"
+                            required
+                        />
                         <button>Add</button>
                     </form>
                 </div>

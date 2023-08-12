@@ -192,6 +192,10 @@ button {
     border-radius: 8px;
 }
 
+.add-option-cancel {
+    cursor: pointer;
+}
+
 .hide {
     display: none;
 }
