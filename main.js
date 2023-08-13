@@ -18,7 +18,16 @@ let previousPrizes = ["0"];
 
 previousPrizeDOM.textContent = previousPrizes[0] + " $";
 
-let options = ["50", "100", "10", "present", "1000", "25", "100"];
+let options = [
+    "50",
+    "100",
+    "10",
+    "present",
+    "1000",
+    "25",
+    "100",
+    "0",
+];
 let rotateDeg = 0;
 
 createWheel(options);
