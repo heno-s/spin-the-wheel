@@ -14,9 +14,9 @@ const previousPrizeDOM = document.querySelector(
     "#previous-prize-value"
 );
 let isSpinning = false;
-let previousPrize = "0$";
+let previousPrizes = ["0"];
 
-previousPrizeDOM.textContent = previousPrize;
+previousPrizeDOM.textContent = previousPrizes[0] + " $";
 
 let options = ["50", "100", "10", "present", "1000", "25", "100"];
 let rotateDeg = 0;
@@ -33,9 +33,8 @@ document.addEventListener("optionsChange", (evt) => {
     createWheel(options);
     calibrateWheel(360 / options.length / 2);
 });
-document.addEventListener("spinEnd", (evt) => {
-    previousPrize = evt.detail.previousPrize;
-    console.log(previousPrize);
+document.addEventListener("spinStart", (evt) => {
+    const previousPrize = previousPrizes.shift();
     const previousPrizeText = isNaN(+previousPrize)
         ? previousPrize
         : previousPrize + " $";
@@ -48,6 +47,9 @@ spinButton.addEventListener("click", (evt) => {
     }
     isSpinning = true;
     const winnerIndex = Math.floor(Math.random() * options.length);
+    const prize = options[winnerIndex];
+    previousPrizes.push(prize);
+    document.dispatchEvent(new Event("spinStart"));
     const winnerOptionDOM = wheelOptions.querySelector(
         `[data-id="${winnerIndex}"]`
     );
@@ -60,9 +62,6 @@ spinButton.addEventListener("click", (evt) => {
         ) || 1
     ); // if it is 0deg, computations will break, it needs to be more than 0
 
-    console.log(winnerOptionDOM);
-    console.log(winnerOptionRotateDeg);
-
     const rotateInterval = setInterval(() => {
         rotate(++rotateDeg);
     }, 0);
@@ -73,13 +72,6 @@ spinButton.addEventListener("click", (evt) => {
                 clearInterval(rotateInterval);
                 clearInterval(checkInterval);
                 isSpinning = false;
-                document.dispatchEvent(
-                    new CustomEvent("spinEnd", {
-                        detail: {
-                            previousPrize: options[winnerIndex],
-                        },
-                    })
-                );
             }
         }, 0);
     }, 1000 + Math.random() * 1500);
