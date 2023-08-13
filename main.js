@@ -10,8 +10,13 @@ const addOptionInput = addOptionForm.optionLabel;
 const spinButton = document.querySelector(".spin-button");
 const wheelOptions = document.querySelector(".wheel-options");
 const optionsDOM = document.querySelector(".options");
+const previousPrizeDOM = document.querySelector(
+    "#previous-prize-value"
+);
 let isSpinning = false;
-let previousWin = 0;
+let previousPrize = "0$";
+
+previousPrizeDOM.textContent = previousPrize;
 
 let options = ["50", "100", "10", "present", "1000", "25", "100"];
 let rotateDeg = 0;
@@ -27,6 +32,14 @@ document.addEventListener("optionsChange", (evt) => {
     createOptions(options);
     createWheel(options);
     calibrateWheel(360 / options.length / 2);
+});
+document.addEventListener("spinEnd", (evt) => {
+    previousPrize = evt.detail.previousPrize;
+    console.log(previousPrize);
+    const previousPrizeText = isNaN(+previousPrize)
+        ? previousPrize
+        : previousPrize + " $";
+    previousPrizeDOM.textContent = previousPrizeText;
 });
 
 spinButton.addEventListener("click", (evt) => {
@@ -60,7 +73,13 @@ spinButton.addEventListener("click", (evt) => {
                 clearInterval(rotateInterval);
                 clearInterval(checkInterval);
                 isSpinning = false;
-                console.log(rotateDeg % 360);
+                document.dispatchEvent(
+                    new CustomEvent("spinEnd", {
+                        detail: {
+                            previousPrize: options[winnerIndex],
+                        },
+                    })
+                );
             }
         }, 0);
     }, 1000 + Math.random() * 1500);
