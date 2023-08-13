@@ -8,10 +8,13 @@ const cancelAddOption = addOptionForm.querySelector(
 );
 const addOptionInput = addOptionForm.optionLabel;
 const spinButton = document.querySelector(".spin-button");
-const wheel = document.querySelector(".wheel");
+const wheelOptions = document.querySelector(".wheel-options");
 const optionsDOM = document.querySelector(".options");
+let isSpinning = false;
+let previousWin = 0;
 
-let options = ["50", "100", "100", "100", "100", "100"];
+let options = ["50", "100", "10", "present", "1000", "25", "100"];
+let rotateDeg = 0;
 
 createWheel(options);
 calibrateWheel(360 / options.length / 2);
@@ -26,7 +29,51 @@ document.addEventListener("optionsChange", (evt) => {
     calibrateWheel(360 / options.length / 2);
 });
 
+spinButton.addEventListener("click", (evt) => {
+    if (isSpinning) {
+        return;
+    }
+    isSpinning = true;
+    const winnerIndex = Math.floor(Math.random() * options.length);
+    const winnerOptionDOM = wheelOptions.querySelector(
+        `[data-id="${winnerIndex}"]`
+    );
+    const winnerOptionRotateDeg = Math.round(
+        // if there was floating number, computation of when to stop would never evaluate to true
+        Number(
+            winnerOptionDOM.style.transform.match(
+                /\d+\.?\d*(?=deg)/
+            )[0]
+        ) || 1
+    ); // if it is 0deg, computations will break, it needs to be more than 0
+
+    console.log(winnerOptionDOM);
+    console.log(winnerOptionRotateDeg);
+
+    const rotateInterval = setInterval(() => {
+        rotate(++rotateDeg);
+    }, 0);
+
+    setTimeout(() => {
+        const checkInterval = setInterval(() => {
+            if ((rotateDeg % 360) / winnerOptionRotateDeg === 1) {
+                clearInterval(rotateInterval);
+                clearInterval(checkInterval);
+                isSpinning = false;
+                console.log(rotateDeg % 360);
+            }
+        }, 0);
+    }, 1000 + Math.random() * 1500);
+
+    function rotate(deg) {
+        wheelOptions.style.transform = `rotate(-${deg}deg)`;
+    }
+});
+
 optionsDOM.addEventListener("click", (evt) => {
+    if (isSpinning) {
+        return;
+    }
     const t = evt.target;
     if (t.classList.contains("option-delete") && options.length > 2) {
         const optionDOM = t.closest(".option");
@@ -47,6 +94,9 @@ addOptionButton.addEventListener("click", (evt) => {
 
 addOptionForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
+    if (isSpinning) {
+        return;
+    }
 
     const optionLabel = addOptionForm.optionLabel.value;
 

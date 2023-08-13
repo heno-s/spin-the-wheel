@@ -12,11 +12,16 @@ function deleteWheel() {
     wheelOptionsDOM.innerHTML = "";
 }
 
-function createOptionDOM(label) {
+function createOptionDOM(label, index) {
     const optionDOM = document.createElement("div");
     optionDOM.classList.add("wheel-option");
     const labelDOM = document.createElement("span");
-    labelDOM.textContent = label;
+    if (!isNaN(+label)) {
+        labelDOM.textContent = label + " $";
+    } else {
+        labelDOM.textContent = label;
+    }
+    optionDOM.dataset.id = index;
 
     optionDOM.appendChild(labelDOM);
     return optionDOM;
@@ -25,7 +30,7 @@ function createOptionDOM(label) {
 export default function createWheel(options) {
     options.forEach((option, index) => {
         let optionWidth = (Math.PI * WHEEL_WIDTH) / options.length;
-        const optionDOM = createOptionDOM(option);
+        const optionDOM = createOptionDOM(option, index);
         optionDOM.style.transform = `rotate(calc(${
             MAX_DEGREE / options.length
         }deg * ${index}))`;

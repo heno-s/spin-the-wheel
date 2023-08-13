@@ -2,7 +2,9 @@ function createOption(label, index) {
     const optionDOM = document.createElement("li");
     optionDOM.classList.add("option");
     optionDOM.dataset.id = index;
-    optionDOM.innerHTML = `<div class="option-label">${label}</div>
+    optionDOM.innerHTML = `<div class="option-label">${
+        isNaN(+label) ? label : label + " $"
+    }</div>
   <div class="option-delete">x</div>`;
 
     return optionDOM;
